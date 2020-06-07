@@ -4,66 +4,39 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <App />
-//   </React.StrictMode>,
-//   document.getElementById('root')
-// );
-
-// function tick() {
-//   const element = (
-//     <div>
-//       <h1>Hello, world!</h1>
-//       <h2>It is {new Date().toLocaleTimeString()}.</h2>
-//     </div>
-//   );
-//   ReactDOM.render(element, document.getElementById('root'));
-// }
-
-// setInterval(tick, 1000);
-
-
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
 
-class Clock extends React.Component{
-  constructor(props){
+
+
+class Toggle extends React.Component {
+  constructor(props) {
     super(props);
-    this.state = {date: new Date()};
+    this.state = {isToggleOn: true};
+
+    // This binding is necessary to make `this` work in the callback
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount(){
-    this.timerID = setInterval(
-      () => this.tick(),
-      1000
-    );
+  handleClick() {
+    this.setState(state => ({
+      isToggleOn: !state.isToggleOn
+    }));
   }
 
-  componentWillUnmount(){
-    clearInterval(this.timerID);
-  }
-
-  tick(){
-    this.setState({
-      date: new Date()
-    });
-  }
-
-  render(){
+  render() {
     return (
-      <div>
-        <h1>Hello, world!</h1>
-        <h2>It is {this.state.date.toLocaleTimeString()}</h2>
-      </div>
+      <button onClick={this.handleClick}>
+        {this.state.isToggleOn ? 'ON' : 'OFF'}
+      </button>
     );
+    
   }
 }
 
-
 ReactDOM.render(
-  <Clock />,
+  <Toggle />,
   document.getElementById('root')
 );

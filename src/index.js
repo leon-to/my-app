@@ -9,22 +9,20 @@ import * as serviceWorker from './serviceWorker';
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
 
-function Mailbox(props) {
-  const unreadMessages = props.unreadMessages;
+function NumberList(props){
+  const numbers = props.numbers;
+  const listItems = numbers.map((number) => 
+    <li key={number.toString()}>
+      {number}
+    </li>
+  );
   return (
-    <div>
-      <h1>Hello!</h1>
-      {unreadMessages.length > 0 &&
-        <h2>
-          You have {unreadMessages.length} unread messages.
-        </h2>
-      }
-    </div>
+    <ul>{listItems}</ul>
   );
 }
 
-const messages = ['React', 'Re: React', 'Re:Re: React'];
+const numbers = [1, 2, 3, 4, 5];
 ReactDOM.render(
-  <Mailbox unreadMessages={messages} />,
+  <NumberList numbers={numbers} />,
   document.getElementById('root')
 );
